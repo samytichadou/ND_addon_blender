@@ -1,6 +1,7 @@
 import bpy
 import os
 import platform
+import subprocess
 
 from .prefs import get_addon_preferences
 
@@ -77,3 +78,19 @@ def convert_windowspath_to(windows_path):
     elif platform.system()=='Windows':
         newpath=windows_path
     return(newpath)
+
+#create custom path from path and prop
+def create_custom_path_props(path, prop):
+    for f in os.listdir(path):
+        new=prop.add()
+        new.name=f.split('.txt')[0]
+        new.path=get_content_txt(os.path.join(path, f))
+        
+#open specific folder
+def open_folder(path):
+    if platform.system() == "Windows":
+        os.startfile(path)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
