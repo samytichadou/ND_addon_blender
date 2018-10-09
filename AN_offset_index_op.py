@@ -7,7 +7,8 @@ class ND_an_offset_indexpy(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
     
     prop_to_offset=bpy.props.StringProperty(default="Index", name="Prop Name")
-    offset=bpy.props.IntProperty(name="Offset")
+    offset=bpy.props.IntProperty(name="Offset", default=0)
+    revert_prop=bpy.props.BoolProperty(name="Revert", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -27,22 +28,40 @@ class ND_an_offset_indexpy(bpy.types.Operator):
     def draw(self, context):
         layout = self.layout
         layout.prop(self, "prop_to_offset")
-        layout.prop(self, "offset")
+        layout.prop(self, 'revert_prop')
+        if self.revert_prop==False:
+            layout.prop(self, "offset")
         
-
     def execute(self, context):
         
         customprop="AN*Integer*"+self.prop_to_offset
         
+        if self.revert_prop==True:
+            list=[]
+            for ob in bpy.context.scene.objects:
+                if ob.select==True:
+                    list.append(ob)
+            lgt=len(list)-1
+        
         for ob in bpy.context.scene.objects:
             if ob.select==True:
-                try:
-                    old_idx=ob[customprop]
-                    ob[customprop]=old_idx+self.offset
-                    print("AN Offset --- "+ob.name+" offset ok")
-                except:
-                    print("AN Offset --- "+'Error on '+ob.name)
-                    pass
+                if self.revert_prop==False:
+                    try:
+                        old_idx=ob[customprop]
+                        ob[customprop]=old_idx+self.offset
+                        print("AN Offset --- "+ob.name+" offset ok")
+                    except:
+                        print("AN Offset --- "+'Error on '+ob.name)
+                        pass
+                else:
+                    try:
+                        old_idx=ob[customprop]
+                        ob[customprop]=lgt-old_idx
+                        print("AN Offset --- "+ob.name+" offset ok")
+                    except:
+                        print("AN Offset --- "+'Error on '+ob.name)
+                        pass
+                    
                 
         return {"FINISHED"}
         
