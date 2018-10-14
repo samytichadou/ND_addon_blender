@@ -94,3 +94,55 @@ def open_folder(path):
         subprocess.Popen(["open", path])
     else:
         subprocess.Popen(["xdg-open", path])
+        
+#find shot from location
+def return_shot_infos_from_path(path):
+    dir1=os.path.dirname(path)
+    cat=os.path.basename(dir1)
+    
+    dir2=os.path.dirname(dir1)
+    shot_str=os.path.basename(dir2)
+    
+    try:
+        shot=int(shot_str)
+    except:
+        shot=00
+    return(shot, cat, dir2)
+    
+#suppress files in folder
+def suppress_files_in_folder(folderpath):
+    for f in os.listdir(folderpath):
+        file=os.path.join(folderpath, f)
+        try:
+            os.remove(file)
+        except:
+            print("ND - impossible to remove "+f)
+            
+#activate metadatas
+def activate_metadatas():
+    scn=bpy.context.scene
+    rd=scn.render
+    
+    rd.use_stamp_time = True
+    rd.use_stamp_date = True
+    rd.use_stamp_render_time = True
+    rd.use_stamp_frame = True
+    rd.use_stamp_scene = True
+    rd.use_stamp_memory = True
+    rd.use_stamp_camera = True
+    rd.use_stamp_lens = True
+    rd.use_stamp_filename = True
+    rd.use_stamp_marker = True
+    rd.use_stamp_sequencer_strip = False
+    rd.use_stamp_strip_meta = False
+    
+#activate stamp metadatas
+def activate_stamp_metadatas():
+    scn=bpy.context.scene
+    rd=scn.render
+    
+    rd.use_stamp = True
+    rd.stamp_font_size = 12
+    rd.use_stamp_labels = True
+    rd.stamp_foreground = (0.8, 0.8, 0.8, 1)
+    rd.stamp_background = (0, 0, 0, 0.25)
