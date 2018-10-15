@@ -30,7 +30,7 @@ class ND_create_shot_folders(bpy.types.Operator):
     def execute(self, context):
         shot_folder=find_shot_folder()
         base=os.path.join(shot_folder, "00")
-        new=os.path.join(shot_folder, str(self.shot_number))
+        new=os.path.join(shot_folder, str(self.shot_number).zfill(2))
         if os.path.isdir(new)==False:
             shutil.copytree(base, new)
             inf="ND - Shot "+ str(self.shot_number) + " created"
