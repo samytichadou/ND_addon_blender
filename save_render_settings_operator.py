@@ -21,7 +21,7 @@ class ND_save_render_settings(bpy.types.Operator):
         blend_path=bpy.data.filepath
         blend_name=os.path.splitext(os.path.basename(blend_path))[0]
         
-        prefix="RENDER_SETTINGS_"
+        prefix="RENDER_"
         
         try:
             name_temp=prefix+blend_name+"_"+scn.name+"_"+scn.camera.name
@@ -47,9 +47,7 @@ class ND_save_render_settings(bpy.types.Operator):
     
         shot, cat, dir=return_shot_infos_from_path(blend_path)
         
-        prefix="RENDER_"
-        
-        json_file=os.path.join(os.path.join(dir, "006_MISC"),self.name+".json")
+        json_file=os.path.join(os.path.join(os.path.join(dir, "006_MISC"), "000_RENDER_SETTINGS"),self.name+".json")
             
         #check json exists or not
         if os.path.isfile(json_file):

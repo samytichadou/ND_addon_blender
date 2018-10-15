@@ -103,6 +103,13 @@ def create_custom_path_props(path, prop):
         new.name=f.split('.txt')[0]
         new.path=get_content_txt(os.path.join(path, f))
         
+#create props for render settings
+def create_render_settings_props(path, prop):
+    for f in os.listdir(path):
+        new=prop.add()
+        new.name=f.split('.json')[0]
+        new.path=os.path.join(path, f)
+        
 #open specific folder
 def open_folder(path):
     if platform.system() == "Windows":
