@@ -31,11 +31,8 @@ class ND_create_shot_folders(bpy.types.Operator):
         shot_folder=find_shot_folder()
         base=os.path.join(shot_folder, "00")
         new=os.path.join(shot_folder, str(self.shot_number))
-        print(shot_folder)
-        print(base)
-        print(new)
         if os.path.isdir(new)==False:
-            #shutil.copytree(base, new)
+            shutil.copytree(base, new)
             inf="ND - Shot "+ str(self.shot_number) + " created"
             print(inf)
             self.report({'INFO'}, inf)
