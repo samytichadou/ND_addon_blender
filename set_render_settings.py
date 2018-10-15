@@ -1,7 +1,7 @@
 import bpy
 import os
 
-from .misc_functions import return_shot_infos_from_path, suppress_files_in_folder, activate_metadatas, activate_stamp_metadatas, create_folder
+from .misc_functions import return_shot_infos_from_path, suppress_files_in_folder, activate_metadatas, activate_stamp_metadatas, create_folder, clear_coll_prop, create_render_settings_props
 from .render_settings_functions import read_json, apply_render_settings_from_dataset
 
 class ND_render_settings(bpy.types.Operator):
