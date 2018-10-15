@@ -4,7 +4,7 @@ cy=scene.cycles
 #render
 cy.feature_set
 cy.device
-cy.shading_system = False
+cy.shading_system
 
 
 #dimensions
@@ -15,6 +15,8 @@ rd.image_settings.file_format
 rd.image_settings.color_mode
 rd.image_settings.color_depth
 rd.image_settings.exr_codec
+rd.image_settings.compression
+
 
 #sampling
 cy.progressive
@@ -46,14 +48,14 @@ cy.volume_samples
 cy.volume_step_size
 cy.volume_max_steps
 
-cy_curves.use_curves
+cy.curves.use_curves
 
-cy_curves.primitive
-cy_curves.shape
-cy_curves.cull_backfacing
-cy_curves.minimum_width
-cy_curves.maximum_width
-cy_curves.subdivisions
+cy.curves.primitive
+cy.curves.shape
+cy.curves.cull_backfacing
+cy.curves.minimum_width
+cy.curves.maximum_width
+cy.curves.subdivisions
 
 #ligth paths
 cy.transparent_max_bounces
@@ -71,7 +73,7 @@ cy.volume_bounces
 
 #motion blur
 rd.use_motion_blur
-bpy.context.scene.cycles.motion_blur_position
+cy.motion_blur_position
 cy.rolling_shutter_type
 cy.rolling_shutter_duration
 

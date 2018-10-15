@@ -14,7 +14,24 @@ def create_prop():
     except IndexError:
         new=winman.nd_props.add()
         return(new)
-        
+
+#find shot folder
+def find_shot_folder():
+    prefs=get_addon_preferences()
+    prefs_folder=prefs.prefs_folderpath
+    
+    winman=bpy.data.window_managers['WinMan']
+    prop=winman.nd_props[0]
+    
+    shot_folder_file=os.path.join(prefs_folder, 'shots_folder.txt')
+    f = open(shot_folder_file,"r") 
+    shot_folder=f.read()
+    
+    if os.path.isdir(shot_folder):
+        return (shot_folder)
+    else:
+        return('')
+
 #find folder from filebrowser
 def find_folder_filebrowser():
     prefs=get_addon_preferences()
@@ -118,6 +135,14 @@ def suppress_files_in_folder(folderpath):
         except:
             print("ND - impossible to remove "+f)
             
+#suppress file
+def suppress_file(filepath):
+    if os.path.isfile(filepath):
+        try:
+            os.remove(filepath)
+        except:
+            print("ND - impossible to remove "+filepath)
+            
 #activate metadatas
 def activate_metadatas():
     scn=bpy.context.scene
@@ -146,3 +171,9 @@ def activate_stamp_metadatas():
     rd.use_stamp_labels = True
     rd.stamp_foreground = (0.8, 0.8, 0.8, 1)
     rd.stamp_background = (0, 0, 0, 0.25)
+    
+#create folder if doesn't exist
+def create_folder(path):
+    if os.path.isdir(path)==False:
+        os.mkdir(path)
+        print("ND - "+path+" folder created")
