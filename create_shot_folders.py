@@ -18,7 +18,7 @@ class ND_create_shot_folders(bpy.types.Operator):
     
     def invoke(self, context, event):
         wm = context.window_manager
-        return wm.invoke_props_dialog(self, width=500, height=100)
+        return wm.invoke_props_dialog(self, width=150, height=100)
     
     def check(self, context):
         return True
