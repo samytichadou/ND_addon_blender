@@ -38,7 +38,7 @@ class ND_create_shot_folders(bpy.types.Operator):
             #shutil.copytree(base, new)
             inf="ND - Shot "+ str(self.shot_number) + " created"
             print(inf)
-            self.report({'WARNING'}, inf)
+            self.report({'INFO'}, inf)
         else:
             inf="ND - Shot "+ str(self.shot_number) + " already exists"
             print(inf)
