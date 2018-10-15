@@ -31,6 +31,7 @@ def format_render_settings_info():
         #dimensions
             "resolution_x": rd.resolution_x,
             "resolution_y": rd.resolution_y,
+            "resolution_percentage": rd.resolution_percentage,
             "file_format": im.file_format,
             "color_mode": im.color_mode,
             "color_depth": im.color_depth,
@@ -142,6 +143,7 @@ def apply_render_settings_from_dataset(datas):
     #dimensions
     rd.resolution_x=datas['settings']["resolution_x"]
     rd.resolution_y=datas['settings']["resolution_y"]
+    rd.resolution_percentage=datas['settings']["resolution_percentage"]
     im.file_format=datas['settings']["file_format"]
     im.color_mode=datas['settings']["color_mode"]
     im.color_depth=datas['settings']["color_depth"]

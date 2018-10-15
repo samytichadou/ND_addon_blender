@@ -10,21 +10,15 @@ class ND_render_settings(bpy.types.Operator):
     bl_description = ""
     bl_options = {"REGISTER", "UNDO"}
     
-    possible_states = [
-                ("0","Render","Render"),
-                ("1","Render proxy","Render proxy"),
-                ("2","Playblast","Playblast"),
-                ]
-    state= bpy.props.EnumProperty(name="State", default="2", items=possible_states)
-    proxy_percentage = bpy.props.IntProperty(name="Proxy Percentage", default=50, min=5, max=95)
-    suppress_previous=bpy.props.BoolProperty(name="Suppress previous render", default=False)
-    relative=bpy.props.BoolProperty(name="Relative Path", default=False)
+    index=bpy.props.IntProperty(min=0, default=0)
     
     @classmethod
     def poll(cls, context):
         return bpy.data.is_saved==True and context.scene.camera is not None
     
     def invoke(self, context, event):
+        #erase list
+        #create list
         wm = context.window_manager
         return wm.invoke_props_dialog(self, width=500, height=100)
     
@@ -32,14 +26,11 @@ class ND_render_settings(bpy.types.Operator):
         return True
     
     def draw(self, context):
+        winman=bpy.data.window_managers['WinMan']
+        prop=winman.nd_props[0]
+        
         layout = self.layout
-        layout.prop(self, "state")
-        row=layout.row()
-        row.prop(self, "suppress_previous")
-        if self.state!='2':
-            row.prop(self, "relative")
-        if self.state!='0':
-            layout.prop(self, 'proxy_percentage')
+        layout.template_list("NDUIList", "", prop, "render_coll", self, "index", rows=5)
 
     def execute(self, context):
         scn=bpy.context.scene
