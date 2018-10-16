@@ -1,6 +1,7 @@
 import bpy
 import os
 
+from .prefs import get_addon_preferences
 from .misc_functions import open_folder, return_shot_infos_from_path
 
 class ND_open_settings_folder(bpy.types.Operator):
@@ -14,12 +15,12 @@ class ND_open_settings_folder(bpy.types.Operator):
         return bpy.data.is_saved==True
 
     def execute(self, context):
-        filepath=bpy.data.filepath
-        shot, cat, dir=return_shot_infos_from_path(filepath)
+        prefs=get_addon_preferences()
+        path=prefs.prefs_folderpath
+        renderpath=os.path.join(path, 'render_settings')
         
-        settings_folder=os.path.join(os.path.join(dir, "006_MISC"), "000_RENDER_SETTINGS")
-        if os.path.isdir(settings_folder):
-            open_folder(settings_folder)
+        if os.path.isdir(renderpath):
+            open_folder(renderpath)
         else:
             inf="ND - no settings folder"
             print(inf)

@@ -50,22 +50,28 @@ class ND_render_settings(bpy.types.Operator):
         
         scn=bpy.context.scene
         rd=scn.render
-    
-        json_file=prop.render_coll[self.index].path
+        
+        try:
+            json_file=prop.render_coll[self.index].path
+            datas=read_json(json_file)
+            apply_render_settings_from_dataset(datas)
+            
+            #general settings
+            activate_metadatas()
+            
+            #override settings
+            rd.use_file_extension = True
+            rd.use_render_cache = False
+            rd.use_freestyle = False    
+            
+            inf="ND - settings loaded"
+            print(inf)
+            self.report({'INFO'}, inf)
+            
+        except IndexError:
+            inf="ND - No settings"
+            print(inf)
+            self.report({'WARNING'}, inf)
 
-        datas=read_json(json_file)
-        apply_render_settings_from_dataset(datas)
-        
-        #general settings
-        activate_metadatas()
-        
-        #override settings
-        rd.use_file_extension = True
-        rd.use_render_cache = False
-        rd.use_freestyle = False    
-        
-        inf="ND - settings loaded"
-        print(inf)
-        self.report({'INFO'}, inf)
 
         return {"FINISHED"}
