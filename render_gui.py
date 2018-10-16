@@ -12,12 +12,14 @@ class ND_render_panel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         
-        row=layout.row()
+        row=layout.row(align=False)
+        row.operator("nd.output_settings", icon='LOAD_FACTORY')
+        row.operator("nd.render_settings", icon='RENDER_STILL')
+        row=layout.row(align=False)
         row.operator("nd.save_render_settings", icon='DISK_DRIVE')
-        row.operator("nd.render_settings", icon='LOAD_FACTORY')
-        row=layout.row()
         row.operator("nd.open_settings_folder", icon='FILE_FOLDER')
+        row=layout.row(align=False)
         row.operator("nd.open_shot_folder", icon='FILE_FOLDER')
-        row=layout.row()
         row.operator("nd.create_shot_folders", icon='NEWFOLDER')
+        row=layout.row(align=False)
         row.operator("nd.play_shot", icon='PLAY')

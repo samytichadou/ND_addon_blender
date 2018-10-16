@@ -20,7 +20,7 @@ class NDFileBrowserUI(bpy.types.Panel):
             prop=winman.nd_props[0]
         except IndexError:
             chk=1
-        return bpy.data.is_saved==True and chk==0
+        return chk==0
     
     def draw(self, context):
         layout = self.layout

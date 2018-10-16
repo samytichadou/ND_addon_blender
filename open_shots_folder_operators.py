@@ -17,7 +17,7 @@ class ND_open_settings_folder(bpy.types.Operator):
         filepath=bpy.data.filepath
         shot, cat, dir=return_shot_infos_from_path(filepath)
         
-        settings_folder=os.path.join(dir, "006_MISC")
+        settings_folder=os.path.join(os.path.join(dir, "006_MISC"), "000_RENDER_SETTINGS")
         if os.path.isdir(settings_folder):
             open_folder(settings_folder)
         else:

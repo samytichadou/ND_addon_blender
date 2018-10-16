@@ -4,9 +4,9 @@ import os
 from .misc_functions import return_shot_infos_from_path, suppress_files_in_folder, activate_metadatas, activate_stamp_metadatas, create_folder
 from .render_settings_functions import read_json, apply_render_settings_from_dataset
 
-class ND_render_settings(bpy.types.Operator):
-    bl_idname = "nd.render_settings"
-    bl_label = "Set Render Settings"
+class ND_output_settings(bpy.types.Operator):
+    bl_idname = "nd.output_settings"
+    bl_label = "Set Output Settings"
     bl_description = ""
     bl_options = {"REGISTER", "UNDO"}
     
@@ -65,11 +65,6 @@ class ND_render_settings(bpy.types.Operator):
 
         #general settings
         activate_metadatas()
-        
-        rd.use_file_extension = True
-        rd.use_render_cache = False
-        rd.use_freestyle = False
-        rd.use_motion_blur = False
         
         #relative path
         if self.state!='2' and self.relative==True:
