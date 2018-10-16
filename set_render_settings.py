@@ -1,6 +1,7 @@
 import bpy
 import os
 
+from .prefs import get_addon_preferences
 from .misc_functions import return_shot_infos_from_path, suppress_files_in_folder, activate_metadatas, activate_stamp_metadatas, create_folder, clear_coll_prop, create_render_settings_props
 from .render_settings_functions import read_json, apply_render_settings_from_dataset
 
@@ -20,16 +21,15 @@ class ND_render_settings(bpy.types.Operator):
         winman=bpy.data.window_managers['WinMan']
         prop=winman.nd_props[0]
         
-        blend_path=bpy.data.filepath
-        blend_name=os.path.splitext(os.path.basename(blend_path))[0]
-        shot, cat, dir=return_shot_infos_from_path(blend_path)
-        render_folder=os.path.join(os.path.join(dir, "006_MISC"), "000_RENDER_SETTINGS")
+        prefs=get_addon_preferences()
+        path=prefs.prefs_folderpath
+        renderpath=os.path.join(path, 'render_settings')
         
         #erase list
         custompath=clear_coll_prop(prop.render_coll)
         
         #create new list
-        create_render_settings_props(render_folder, prop.render_coll)
+        create_render_settings_props(renderpath, prop.render_coll)
 
         wm = context.window_manager
         return wm.invoke_props_dialog(self, width=500, height=100)

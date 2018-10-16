@@ -1,6 +1,7 @@
 import bpy
 import os
 
+from .prefs import get_addon_preferences
 from .misc_functions import return_shot_infos_from_path, suppress_file
 from .render_settings_functions import format_render_settings_info, create_json
 
@@ -41,28 +42,26 @@ class ND_save_render_settings(bpy.types.Operator):
         layout.prop(self, "name")
 
     def execute(self, context):
-        scn=context.scene
-        blend_path=bpy.data.filepath
-        blend_name=os.path.splitext(os.path.basename(blend_path))[0]
+        prefs=get_addon_preferences()
+        path=prefs.prefs_folderpath
+        renderpath=os.path.join(path, 'render_settings')
     
-        shot, cat, dir=return_shot_infos_from_path(blend_path)
-        
-        json_file=os.path.join(os.path.join(os.path.join(dir, "006_MISC"), "000_RENDER_SETTINGS"),self.name+".json")
+        json_file=os.path.join(renderpath ,self.name+".json")
             
         #check json exists or not
         if os.path.isfile(json_file):
             #delete if exists
             suppress_file(json_file)
         #save
-        if json_file!="":
+        try:
             datas=format_render_settings_info()
             create_json(json_file, datas)
             
             inf="ND - json created"
             print(inf)
             self.report({'INFO'}, inf)
-        else:
-            inf="ND - no camera in the scene"
+        except:
+            inf="ND - Error creating json"
             print(inf)
             self.report({'WARNING'}, inf)
         

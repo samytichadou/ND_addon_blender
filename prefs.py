@@ -13,9 +13,17 @@ class VCacheAddonPrefs(bpy.types.AddonPreferences):
             subtype="DIR_PATH",
             )
             
+    source=bpy.props.StringProperty(subtype="DIR_PATH", name='Source', default=r"C:\Users\GRAPHISTE 001\AppData\Roaming\Blender Foundation\Blender\2.79\scripts\addons\ND_addon_blender")
+    destination=bpy.props.StringProperty(subtype="DIR_PATH", name='Destination', default=r"\\motionorama\MOTIONORAMA_DRIVE\----ELEMENTS\BLENDER\ne_pas_toucher_blender_common_scripts\scripts\addons\ND_addon_blender_share")
+            
     def draw(self, context):
         layout = self.layout
         layout.prop(self, 'prefs_folderpath')
+        box=layout.box()
+        box.label("Debug")
+        box.prop(self, "source")
+        box.prop(self, "destination")
+        box.operator("nd.deploy_addon", icon='ERROR')
         
 
 # get addon preferences
