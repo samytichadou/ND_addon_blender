@@ -31,7 +31,7 @@ class NDFileBrowserUI(bpy.types.Panel):
         layout.prop(prop, 'shot_index')
         
         if len(prop.dirpath_coll)>0:
-            layout.template_list("NDUIList", "", prop, "dirpath_coll", prop, "path_index", rows=5)
+            layout.template_list("NDUIList", "", prop, "dirpath_coll", prop, "path_index", rows=20)
             
         row=layout.row(align=True)
         row.operator("nd.reload_custom_path", text='Reload', icon='FILE_REFRESH')
