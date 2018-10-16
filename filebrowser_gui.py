@@ -9,7 +9,7 @@ class NDUIList(bpy.types.UIList):
 class NDFileBrowserUI(bpy.types.Panel):
     bl_space_type = 'FILE_BROWSER'
     bl_region_type = 'TOOLS'
-    bl_category = "Bookmarks"
+    bl_category = "Notre-Dame"
     bl_label = "Notre-Dame"
     
     @classmethod
