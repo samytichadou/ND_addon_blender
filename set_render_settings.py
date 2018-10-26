@@ -15,7 +15,7 @@ class ND_render_settings(bpy.types.Operator):
     
     @classmethod
     def poll(cls, context):
-        return bpy.data.is_saved==True and context.scene.camera is not None
+        return bpy.data.is_saved==True
     
     def invoke(self, context, event):
         winman=bpy.data.window_managers['WinMan']
