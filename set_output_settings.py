@@ -14,10 +14,11 @@ class ND_output_settings(bpy.types.Operator):
                 ("0","Render","Render"),
                 ("1","Render proxy","Render proxy"),
                 ("2","Playblast","Playblast"),
+                ("3","Playblast OK","Playblast OK"),
                 ]
     state= bpy.props.EnumProperty(name="State", default="2", items=possible_states)
     suppress_previous=bpy.props.BoolProperty(name="Suppress previous render", default=False)
-    relative=bpy.props.BoolProperty(name="Relative Path", default=False)
+    relative=bpy.props.BoolProperty(name="Relative Path", default=True)
     
     @classmethod
     def poll(cls, context):
@@ -35,7 +36,7 @@ class ND_output_settings(bpy.types.Operator):
         layout.prop(self, "state")
         row=layout.row()
         row.prop(self, "suppress_previous")
-        if self.state!='2':
+        if self.state not in {'2','3'}:
             row.prop(self, "relative")
 
     def execute(self, context):
@@ -77,12 +78,27 @@ class ND_output_settings(bpy.types.Operator):
             abs_filepath=os.path.join(playblast_path, name+"_PLAYBLAST_####")
             #create folder if needed
             create_folder(playblast_path)
-            
+            rd.resolution_percentage = 50
             rd.image_settings.file_format = 'PNG'
             rd.image_settings.color_mode = 'RGBA'
             rd.image_settings.compression = 15
             rd.image_settings.color_depth = '8'
             #rd.use_overwrite = True
+            activate_stamp_metadatas()
+            
+                #playblast ok
+        elif self.state=='3':
+            tmp=os.path.join(dir, "004_PLAYBLAST")
+            playblast_path=os.path.join(tmp, "000_PLAYBLAST_OK")
+            abs_filepath=os.path.join(playblast_path, "SHOT"+str(shot).zfill(2)+"_PLAYBLAST_OK_####")
+            #create folder if needed
+            create_folder(playblast_path)
+            rd.resolution_percentage = 100
+            rd.image_settings.file_format = 'PNG'
+            rd.image_settings.color_mode = 'RGB'
+            rd.image_settings.compression = 15
+            rd.image_settings.color_depth = '8'
+            rd.use_overwrite = True
             activate_stamp_metadatas()
 
         #proxy
@@ -92,13 +108,13 @@ class ND_output_settings(bpy.types.Operator):
             abs_filepath=os.path.join(proxy_path, name+"_RENDER_PROXY_####")
             #create folder if needed
             create_folder(proxy_path)
-            
+            rd.resolution_percentage = 50
             #suppress previous render if needed
             if self.suppress_previous==True:
                 suppress_files_in_folder(proxy_path)
             #get render settings
             #get render layer and passes
-            rd.use_stamp=False
+            activate_stamp_metadatas()
 
         #render
         elif self.state=='0':
@@ -107,7 +123,7 @@ class ND_output_settings(bpy.types.Operator):
             abs_filepath=os.path.join(render_path, name+"_RENDER_MASTER_####")
             #create folder if needed
             create_folder(render_path)
-            
+            rd.resolution_percentage = 100
             #suppress previous render if needed
             if self.suppress_previous==True:
                 suppress_files_in_folder(render_path)
