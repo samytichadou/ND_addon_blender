@@ -15,10 +15,12 @@ class VCacheAddonPrefs(bpy.types.AddonPreferences):
             
     source=bpy.props.StringProperty(subtype="DIR_PATH", name='Source', default=r"C:\Users\GRAPHISTE 001\AppData\Roaming\Blender Foundation\Blender\2.79\scripts\addons\ND_addon_blender")
     destination=bpy.props.StringProperty(subtype="DIR_PATH", name='Destination', default=r"\\motionorama\MOTIONORAMA_DRIVE\----ELEMENTS\BLENDER\ne_pas_toucher_blender_common_scripts\scripts\addons\ND_addon_blender_share")
+    spreadsheet_url=bpy.props.StringProperty(name='Spreadsheet URL', default=r"https://docs.google.com/spreadsheets/d/1-KIbJUdhPctKJBhjSaxth3IBxeJtPZMPDp7qmxA6S2E/")
             
     def draw(self, context):
         layout = self.layout
         layout.prop(self, 'prefs_folderpath')
+        layout.prop(self, 'spreadsheet_url')
         box=layout.box()
         box.label("Debug")
         box.prop(self, "source")

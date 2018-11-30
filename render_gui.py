@@ -23,3 +23,4 @@ class ND_render_panel(bpy.types.Panel):
         row.operator("nd.create_shot_folders", icon='NEWFOLDER')
         row=layout.row(align=False)
         row.operator("nd.play_shot", icon='PLAY')
+        row.operator("nd.gotospreadsheet", icon='SHORTDISPLAY')
