@@ -167,6 +167,7 @@ def activate_metadatas():
     rd.use_stamp_marker = True
     rd.use_stamp_sequencer_strip = False
     rd.use_stamp_strip_meta = False
+    rd.use_stamp_note = True
     
 #activate stamp metadatas
 def activate_stamp_metadatas():

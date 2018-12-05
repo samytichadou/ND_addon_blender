@@ -42,6 +42,7 @@ importlib.reload(developer_utils)
 modules = developer_utils.setup_addon_modules(__path__, __name__, "bpy" in locals())
 
 from .handler_start import nd_start_handler
+from .handler_render import nd_render_handler
 from .props import NDProps
 
 # register
@@ -58,8 +59,10 @@ def register():
     #props
     bpy.types.WindowManager.nd_props = bpy.props.CollectionProperty(type=NDProps, name='ND Props')
     
-    #handler
+    #handler start
     bpy.app.handlers.load_post.append(nd_start_handler)
+    #handler render
+    bpy.app.handlers.render_pre.append(nd_render_handler)
     
 def unregister():
     try: bpy.utils.unregister_module(__name__)
@@ -70,5 +73,7 @@ def unregister():
     #props
     del bpy.types.WindowManager.nd_props
     
-    #handler
+    #handler start
     bpy.app.handlers.load_post.remove(nd_start_handler)
+    #handler render
+    bpy.app.handlers.render_pre.remove(nd_render_handler)

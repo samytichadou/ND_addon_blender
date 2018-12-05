@@ -6,6 +6,7 @@ from bpy.app.handlers import persistent
 from .prefs import get_addon_preferences
 from .misc_functions import create_prop, get_content_txt, clear_coll_prop, create_custom_path_props
 
+
 @persistent
 def nd_start_handler(scene):
     prefs=get_addon_preferences()

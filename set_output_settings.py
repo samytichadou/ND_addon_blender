@@ -78,7 +78,7 @@ class ND_output_settings(bpy.types.Operator):
             abs_filepath=os.path.join(playblast_path, name+"_PLAYBLAST_####")
             #create folder if needed
             create_folder(playblast_path)
-            rd.resolution_percentage = 50
+            #rd.resolution_percentage = 50
             rd.image_settings.file_format = 'PNG'
             rd.image_settings.color_mode = 'RGBA'
             rd.image_settings.compression = 15
@@ -108,7 +108,7 @@ class ND_output_settings(bpy.types.Operator):
             abs_filepath=os.path.join(proxy_path, name+"_RENDER_PROXY_####")
             #create folder if needed
             create_folder(proxy_path)
-            rd.resolution_percentage = 50
+            #rd.resolution_percentage = 50
             #suppress previous render if needed
             if self.suppress_previous==True:
                 suppress_files_in_folder(proxy_path)
