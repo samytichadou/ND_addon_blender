@@ -177,8 +177,8 @@ def activate_stamp_metadatas():
     rd.use_stamp = True
     rd.stamp_font_size = 12
     rd.use_stamp_labels = True
-    rd.stamp_foreground = (0.8, 0.8, 0.8, 1)
-    rd.stamp_background = (0, 0, 0, 0.25)
+    rd.stamp_foreground = (1, 1, 1, 1)
+    rd.stamp_background = (0, 0, 0, 0.5)
     
 #create folder if doesn't exist
 def create_folder(path):

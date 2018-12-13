@@ -12,6 +12,7 @@ def custom_metadata():
     note += ", OS: " + sys.platform
     note += ", Compute: " + scn.cycles.device
     scn.render.stamp_note_text = note
+    scn.render.use_stamp_note = True
 
 @persistent
 def nd_render_handler(scene):
